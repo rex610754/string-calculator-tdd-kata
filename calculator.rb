@@ -8,6 +8,7 @@ class Calculator
 
   def initialize(number_string)
     @number_string = number_string
+    validate_argument_type
   end
 
   def add
@@ -17,6 +18,10 @@ class Calculator
   private
 
   attr_reader :number_string
+
+  def validate_argument_type
+    raise ArgumentError unless @number_string.is_a?(String)
+  end
 
   def get_numbers_array
     number_string.split(regex).map(&:to_i)
