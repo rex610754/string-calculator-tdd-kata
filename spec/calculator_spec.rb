@@ -40,5 +40,12 @@ RSpec.describe Calculator do
         expect(described_class.add("//*\n3*4*\n1")).to eq(8)
       end
     end
+
+    context "when input contains custom delimiter as '-' and negative numbers" do
+      it 'should provide proper sum' do
+        expect(described_class.add("//;\n3;-4")).to eq(-1)
+        expect(described_class.add("//-\n3--4-\n5")).to eq(4)
+      end
+    end
   end
 end
