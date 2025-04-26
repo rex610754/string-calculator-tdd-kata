@@ -1,4 +1,6 @@
 class Calculator
+  DELIMITER = ','.freeze
+
   def self.add(number_string)
     new(number_string).add
   end
@@ -8,9 +10,14 @@ class Calculator
   end
 
   def add
+    get_numbers_array.sum
   end
 
   private
 
-  attr_accessor :number_string
+  attr_reader :number_string
+
+  def get_numbers_array
+    number_string.split(DELIMITER).map(&:to_i)
+  end
 end
