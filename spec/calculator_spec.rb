@@ -34,17 +34,18 @@ RSpec.describe Calculator do
       end
     end
 
-    context 'when input contains custom delimiter information in the first line' do
-      it 'should handle delimiter and return proper sum' do
-        expect(described_class.add("//;\n3;4")).to eq(7)
-        expect(described_class.add("//*\n3*4*\n1")).to eq(8)
+    context 'when input contains negative numbers' do
+      context 'when custom delimiter is hyphen' do
+        it 'should raise error' do
+          expect{described_class.add("//-\n3--4-\n5")}.to raise_error(RuntimeError, 'negative numbers not allowed -4')
+        end
       end
-    end
 
-    context "when input contains custom delimiter as '-' and negative numbers" do
-      it 'should provide proper sum' do
-        expect(described_class.add("//;\n3;-4")).to eq(-1)
-        expect(described_class.add("//-\n3--4-\n5")).to eq(4)
+      context 'when custom delimiter is not hyphen' do
+        it 'should raise error' do
+          expect{described_class.add("4\n3,-5")}.to raise_error(RuntimeError, 'negative numbers not allowed -5')
+          expect{described_class.add("//;\n3;-4")}.to raise_error(RuntimeError, 'negative numbers not allowed -4')
+        end
       end
     end
   end
