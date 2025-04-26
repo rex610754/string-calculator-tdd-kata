@@ -1,5 +1,6 @@
 class Calculator
   DELIMITER = ','.freeze
+  NEW_LINE_CHARACTER = "\n".freeze
 
   def self.add(number_string)
     new(number_string).add
@@ -18,6 +19,10 @@ class Calculator
   attr_reader :number_string
 
   def get_numbers_array
-    number_string.split(DELIMITER).map(&:to_i)
+    number_string.split(regex).map(&:to_i)
+  end
+
+  def regex
+    /#{NEW_LINE_CHARACTER}|#{DELIMITER}/
   end
 end
