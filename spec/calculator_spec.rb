@@ -33,5 +33,12 @@ RSpec.describe Calculator do
         expect(described_class.add("\n\n4,3,5")).to eq(12)
       end
     end
+
+    context 'when input contains delimiter information in the first line' do
+      it 'should handle delimiter and return sum' do
+        expect(described_class.add("//;\n3;4")).to eq(7)
+        expect(described_class.add("//*\n3*4*\n1")).to eq(8)
+      end
+    end
   end
 end
