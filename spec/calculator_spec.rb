@@ -5,7 +5,7 @@ RSpec.describe Calculator do
   describe '.add' do
     context 'when input is not a string' do
       it 'should validate and raise an argument error' do
-        expect { described_class.add(23) }.to raise_error(ArgumentError)
+        expect { described_class.add(23) }.to raise_error(ArgumentError, 'Input must be a string')
       end
     end
 
@@ -45,6 +45,8 @@ RSpec.describe Calculator do
       context 'and the custom delimiter is not a hyphen' do
         it 'should raise an error' do
           expect { described_class.add("4\n3,-5") }.to raise_error(RuntimeError, 'negative numbers not allowed -5')
+          expect { described_class.add("4\n3,-5,-7") }
+            .to raise_error(RuntimeError, 'negative numbers not allowed -5, -7')
           expect { described_class.add("//;\n3;-4") }.to raise_error(RuntimeError, 'negative numbers not allowed -4')
         end
       end
