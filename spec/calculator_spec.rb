@@ -3,6 +3,12 @@ require 'rspec'
 
 RSpec.describe Calculator do
   describe '.add' do
+    context 'when input is other than string' do
+      it 'should validate and raise argument error' do
+        expect{described_class.add(23)}.to raise_error(ArgumentError)
+      end
+    end
+
     context 'when input is an empty string' do
       it 'should return 0' do
         expect(described_class.add('')).to eq(0)
