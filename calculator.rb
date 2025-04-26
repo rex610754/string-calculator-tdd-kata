@@ -26,7 +26,7 @@ class Calculator
   end
 
   def get_numbers_array
-    valid_number_string.split(regex).map(&:to_i)
+    valid_number_string.split(regex).map { |number| unmask_negative_numbers(number) }.map(&:to_i)
   end
 
   def extract_number_string
@@ -36,8 +36,16 @@ class Calculator
     if number_string.start_with?('//')
       delimiter_string, numbers_part = number_string.split(NEW_LINE_CHARACTER, 2)
       self.delimiter = delimiter_string[2]
-      self.valid_number_string = numbers_part
+      self.valid_number_string = mask_negatives_for_hyphen_as_delimiter(numbers_part)
     end
+  end
+
+  def mask_negatives_for_hyphen_as_delimiter(numbers_part)
+    numbers_part.gsub('--', '-~')
+  end
+
+  def unmask_negative_numbers(number)
+    number.gsub('~', '-')
   end
 
   def regex
